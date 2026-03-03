@@ -55,7 +55,8 @@ CATEGORIES = {
         "The Guardian": "https://www.theguardian.com/world/rss",
         "NPR": "https://feeds.npr.org/1004/rss.xml",
         "CBS News": "https://www.cbsnews.com/latest/rss/world",
-        "ABC News": "https://abcnews.go.com/abcnews/internationalheadlines"
+        "ABC News": "https://abcnews.go.com/abcnews/internationalheadlines",
+        "Fox News": " https://moxie.foxnews.com/google-publisher/world.xml"
 },
    
     "Politics": {
@@ -77,7 +78,13 @@ CATEGORIES = {
         "BBC": "http://feeds.bbci.co.uk/news/technology/rss.xml",
         "Techradar": "https://www.techradar.com/feeds.xml",
         "TechCrunch": "https://techcrunch.com/feed/"
-    }
+    },
+    "Entertainment": {
+        "The Hollywood Reporter": "ttps://hollywoodreporter.com/c/news/feed/",
+        "Variety": "https://variety.com/feed/",
+        "Buzzeed": "https://www.buzzfeed.com/rss",
+        "Pop Culture Junkie": "https://ejunkieblog.com/category/pop-culture/feed/"
+}
 }
 SOURCE_TRUST = {
     "Reuters": 9,
@@ -87,12 +94,16 @@ SOURCE_TRUST = {
     "The Guardian": 7,
     "Politico": 7,
     "The Hill": 6,
-    "Fox News": 6,
+    "Fox News": 3,
     "Al Jazeera": 7,
     "CBS News": 8,
     "ABC News": 8,
     "TechRadar": 8,
-    "TechCrunch": 9
+    "TechCrunch": 9,
+    "The Hollywood Reporter": 7,
+    "Variety": 9,
+    "BuzzFeed": 8,
+    "Pop Culture Junkie": 9
 }
 def get_headlines(category):
     articles = []
