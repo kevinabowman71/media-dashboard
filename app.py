@@ -40,7 +40,7 @@ def authenticate():
 def require_login():
     auth = request.authorization
     if not auth or not check_auth(auth.username, auth.password):
-        return authenticate()
+        return authenticate()gunicorn app:app --bind 127.0.0.1:$PORT
         
 from flask_caching import Cache
 
@@ -233,4 +233,4 @@ def index():
     )
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
