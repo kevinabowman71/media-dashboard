@@ -215,8 +215,6 @@ for i, article in enumerate(articles):
         categories=CATEGORIES.keys(),
         current_category=category,
         articles=articles
-    
- 
     )
 
 if __name__ == "__main__":
