@@ -74,8 +74,8 @@ CATEGORIES = {
     },
     "Technology": {
         "Reuters": "http://feeds.reuters.com/reuters/technologyNews",
-        "BBC": "http://feeds.bbci.co.uk/news/technology/rss.xml"
-        "Techradar": "https://www.techradar.com/feeds.xml
+        "BBC": "http://feeds.bbci.co.uk/news/technology/rss.xml",
+        "Techradar": "https://www.techradar.com/feeds.xml,
         "TechCrunch": "https://techcrunch.com/feed/"
     }
 }
