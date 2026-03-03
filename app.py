@@ -191,7 +191,7 @@ def index():
     article["summary"] = analysis["summary"]
 
         # Credibility
-        article["credibility"] = SOURCE_TRUST.get(article["source"], 5)
+    article["credibility"] = SOURCE_TRUST.get(article["source"], 5)
 
     # Cross confirmation (needs full list)
     for article in articles:
