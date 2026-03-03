@@ -219,16 +219,23 @@ def index():
     
     category = request.args.get("category", "World")
     articles = get_headlines(category)
+
     for article in articles:
 
         analysis = analyze_headline_local(article["title"])
 
+
+    
+    
         article["sentiment"] = analysis["sentiment"]
         article["intensity"] = analysis["intensity"]
         article["framing_risk"] = analysis["framing_risk"]
         article["summary"] = analysis["summary"]
 
+
         article["credibility"] = SOURCE_TRUST.get(article["source"], 5)
+
+
     # Cross confirmation (needs full list)
     for article in articles:
         confirmation, count = get_cross_confirmation(article, articles)
