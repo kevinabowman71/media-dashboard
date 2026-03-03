@@ -210,9 +210,6 @@ for i, article in enumerate(articles):
         article["confirmation"] = confirmation
         article["confirmation_count"] = count
 
-        # Framing risk
-        article["framing_risk"] = get_framing_risk(article["title"])
-
     return render_template(
         "index.html",
         categories=CATEGORIES.keys(),
