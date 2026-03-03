@@ -2,11 +2,10 @@
 import os
 import feedparser
 from flask import Flask, render_template, request
-from openai import OpenAI
-import json
+
 
 app = Flask(__name__)
-client = OpenAI()
+
 from flask import request, Response
 
 USERNAME = "kevin"
@@ -21,47 +20,9 @@ def authenticate():
         {"WWW-Authenticate": 'Basic realm="Login Required"'}
     )
     
-def analyze_headlines_batch(articles):
-    try:
-        headlines = [article["title"] for article in articles]
 
-        response = client.chat.completions.create(
-            model="gpt-4o-mini",
-            temperature=0,
-            messages=[
-                {
-                    "role": "system",
-                    "content": """
-You are a media analysis engine.
 
-For each headline provided, return a JSON list of objects with:
 
-- sentiment (Positive, Neutral, Negative)
-- intensity (Low, Moderate, High)
-- framing_risk (Low, Moderate, High)
-- summary (one short neutral sentence)
-
-Return ONLY valid JSON array.
-"""
-                },
-                {
-                    "role": "user",
-                    "content": json.dumps(headlines)
-                }
-            ],
-            max_tokens=800
-        )
-
-        content = response.choices[0].message.content.strip()
-
-        try:
-            return json.loads(content)
-        except json.JSONDecodeError:
-            return []
-
-    except Exception as e:
-        print("AI ERROR:", e)
-        return []
 @app.before_request
 def require_login():
     auth = request.authorization
@@ -132,19 +93,7 @@ def get_headlines(category):
 
     return articles
 
-def summarize_headline(title):
-    try:
-        response = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {"role": "system", "content": "Summarize this news headline in one short, clear sentence."},
-                {"role": "user", "content": title}
-            ],
-            max_tokens=60
-        )
-        return response.choices[0].message.content.strip()
-    except:
-        return None
+
 
 
 
@@ -169,42 +118,87 @@ def get_cross_confirmation(article, all_articles):
     else:
         return "Low Confirmation", similar_count  
         
-def get_framing_risk(title):
-    try:
-        response = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {"role": "system", "content": "Classify the rhetorical framing intensity of this headline as Low, Moderate, or High."},
-                {"role": "user", "content": title}
-            ],
-            max_tokens=10
-        )
-        return response.choices[0].message.content.strip()
-    except:
-        return "Unknown"
+import re
+
+POSITIVE_WORDS = {
+    "win", "growth", "success", "improve", "benefit", "positive",
+    "peace", "progress", "record", "strong", "gain", "support"
+}
+
+NEGATIVE_WORDS = {
+    "crisis", "war", "attack", "collapse", "fail", "loss",
+    "threat", "violence", "death", "chaos", "disaster",
+    "corruption", "investigation", "crime"
+}
+
+HIGH_INTENSITY_WORDS = {
+    "shocking", "explosive", "outrage", "bombshell",
+    "devastating", "massive", "fury", "panic", "slam",
+    "blasts", "destroys"
+}
+
+SENSATIONAL_PATTERNS = [
+    r"\bshocking\b",
+    r"\bexplosive\b",
+    r"\bmassive\b",
+    r"\bfury\b",
+    r"\bdevastating\b",
+    r"\bblasts?\b",
+]
+
+def analyze_headline_local(title):
+    words = set(re.findall(r"\b\w+\b", title.lower()))
+
+    positive_score = len(words & POSITIVE_WORDS)
+    negative_score = len(words & NEGATIVE_WORDS)
+    intensity_score = len(words & HIGH_INTENSITY_WORDS)
+
+    if negative_score > positive_score:
+        sentiment = "Negative"
+    elif positive_score > negative_score:
+        sentiment = "Positive"
+    else:
+        sentiment = "Neutral"
+
+    if intensity_score >= 2:
+        intensity = "High"
+    elif intensity_score == 1:
+        intensity = "Moderate"
+    else:
+        intensity = "Low"
+
+    framing_hits = sum(bool(re.search(pattern, title.lower()))
+                       for pattern in SENSATIONAL_PATTERNS)
+
+    if framing_hits >= 2:
+        framing_risk = "High"
+    elif framing_hits == 1:
+        framing_risk = "Moderate"
+    else:
+        framing_risk = "Low"
+
+    return {
+        "sentiment": sentiment,
+        "intensity": intensity,
+        "framing_risk": framing_risk,
+        "summary": title
+    }
 @cache.cached(timeout=900)  # 15 minutes         
 @app.route("/")
 def index():
 
     category = request.args.get("category", "World")
     articles = get_headlines(category)
-    analysis_results = analyze_headlines_batch(articles)
+    for article in articles:
 
-    for i, article in enumerate(articles):
-        if i < len(analysis_results):
-            analysis = analysis_results[i]
-            article["sentiment"] = analysis.get("sentiment", "Unknown")
-            article["intensity"] = analysis.get("intensity", "Unknown")
-            article["framing_risk"] = analysis.get("framing_risk", "Unknown")
-            article["summary"] = analysis.get("summary", "Unavailable")
-        else:
-            article["sentiment"] = "Unknown"
-            article["intensity"] = "Unknown"
-            article["framing_risk"] = "Unknown"
-            article["summary"] = "Unavailable"
+        analysis = analyze_headline_local(article["title"])
+
+        article["sentiment"] = analysis["sentiment"]
+        article["intensity"] = analysis["intensity"]
+        article["framing_risk"] = analysis["framing_risk"]
+        article["summary"] = analysis["summary"]
 
         article["credibility"] = SOURCE_TRUST.get(article["source"], 5)
-
     # Cross confirmation (needs full list)
     for article in articles:
         confirmation, count = get_cross_confirmation(article, articles)
@@ -218,8 +212,8 @@ def index():
         current_category=category,
         articles=articles
     
+ 
     )
-    
+
 if __name__ == "__main__":
-    app.run(debug=true)
-    
+    app.run()
