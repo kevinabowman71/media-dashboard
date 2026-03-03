@@ -185,24 +185,25 @@ def get_framing_risk(title):
 @cache.cached(timeout=900)  # 15 minutes         
 @app.route("/")
 def index():
+
     category = request.args.get("category", "World")
     articles = get_headlines(category)
     analysis_results = analyze_headlines_batch(articles)
 
-for i, article in enumerate(articles):
-    if i < len(analysis_results):
-        analysis = analysis_results[i]
-        article["sentiment"] = analysis.get("sentiment", "Unknown")
-        article["intensity"] = analysis.get("intensity", "Unknown")
-        article["framing_risk"] = analysis.get("framing_risk", "Unknown")
-        article["summary"] = analysis.get("summary", "Unavailable")
-    else:
-        article["sentiment"] = "Unknown"
-        article["intensity"] = "Unknown"
-        article["framing_risk"] = "Unknown"
-        article["summary"] = "Unavailable"
+    for i, article in enumerate(articles):
+        if i < len(analysis_results):
+            analysis = analysis_results[i]
+            article["sentiment"] = analysis.get("sentiment", "Unknown")
+            article["intensity"] = analysis.get("intensity", "Unknown")
+            article["framing_risk"] = analysis.get("framing_risk", "Unknown")
+            article["summary"] = analysis.get("summary", "Unavailable")
+        else:
+            article["sentiment"] = "Unknown"
+            article["intensity"] = "Unknown"
+            article["framing_risk"] = "Unknown"
+            article["summary"] = "Unavailable"
 
-    article["credibility"] = SOURCE_TRUST.get(article["source"], 5)
+        article["credibility"] = SOURCE_TRUST.get(article["source"], 5)
 
     # Cross confirmation (needs full list)
     for article in articles:
@@ -210,11 +211,13 @@ for i, article in enumerate(articles):
         article["confirmation"] = confirmation
         article["confirmation_count"] = count
 
+       
     return render_template(
         "index.html",
         categories=CATEGORIES.keys(),
         current_category=category,
         articles=articles
+    
     )
 
 if __name__ == "__main__":
