@@ -219,6 +219,7 @@ def index():
         articles=articles
     
     )
-
-# if __name__ == "__main__":
+    
+if __name__ == "__main__":
+    app.run(debug=true)
     
