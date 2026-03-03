@@ -186,6 +186,7 @@ def get_framing_risk(title):
 @app.route("/")
 def index():
     category = request.args.get("category", "World")
+    articles = get_headlines(category)
     analysis_results = analyze_headlines_batch(articles)
 
 for i, article in enumerate(articles):
