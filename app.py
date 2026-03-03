@@ -21,39 +21,47 @@ def authenticate():
         {"WWW-Authenticate": 'Basic realm="Login Required"'}
     )
     
-def analyze_headline(title):
+def analyze_headlines_batch(articles):
     try:
+        headlines = [article["title"] for article in articles]
+
         response = client.chat.completions.create(
             model="gpt-4o-mini",
+            temperature=0,
             messages=[
                 {
                     "role": "system",
                     "content": """
 You are a media analysis engine.
-Analyze the headline and return JSON with:
+
+For each headline provided, return a JSON list of objects with:
+
 - sentiment (Positive, Neutral, Negative)
 - intensity (Low, Moderate, High)
 - framing_risk (Low, Moderate, High)
 - summary (one short neutral sentence)
 
-Return ONLY valid JSON.
+Return ONLY valid JSON array.
 """
                 },
-                {"role": "user", "content": title}
+                {
+                    "role": "user",
+                    "content": json.dumps(headlines)
+                }
             ],
-            max_tokens=150
+            max_tokens=800
         )
 
         content = response.choices[0].message.content.strip()
-        return json.loads(content)
+
+        try:
+            return json.loads(content)
+        except json.JSONDecodeError:
+            return []
 
     except Exception as e:
-        return {
-            "sentiment": "Unknown",
-            "intensity": "Unknown",
-            "framing_risk": "Unknown",
-            "summary": "Analysis unavailable."
-        }
+        print("AI ERROR:", e)
+        return []
 @app.before_request
 def require_login():
     auth = request.authorization
@@ -178,19 +186,21 @@ def get_framing_risk(title):
 @app.route("/")
 def index():
     category = request.args.get("category", "World")
-    articles = get_headlines(category)
-    
-    for article in articles:
-        # Summary
-        article["summary"] = summarize_headline(article["title"])
-        analysis = analyze_headline(article["title"])
-        # Sentiment + intensity
-        article["sentiment"] = analysis["sentiment"]
-        article["intensity"] = analysis["intensity"]
-    article["framing_risk"] = analysis["framing_risk"]
-    article["summary"] = analysis["summary"]
+    analysis_results = analyze_headlines_batch(articles)
 
-        # Credibility
+for i, article in enumerate(articles):
+    if i < len(analysis_results):
+        analysis = analysis_results[i]
+        article["sentiment"] = analysis.get("sentiment", "Unknown")
+        article["intensity"] = analysis.get("intensity", "Unknown")
+        article["framing_risk"] = analysis.get("framing_risk", "Unknown")
+        article["summary"] = analysis.get("summary", "Unavailable")
+    else:
+        article["sentiment"] = "Unknown"
+        article["intensity"] = "Unknown"
+        article["framing_risk"] = "Unknown"
+        article["summary"] = "Unavailable"
+
     article["credibility"] = SOURCE_TRUST.get(article["source"], 5)
 
     # Cross confirmation (needs full list)
