@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block content %}
+
+<ul class="nav nav-tabs mb-4">
+    {% for cat in categories %}
+    <li class="nav-item">
+        <a class="nav-link {% if cat == current_category %}active{% endif %}"
+           href="/?category={{ cat }}">
+            {{ cat }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+
+<div class="row">
+{% for article in articles %}
+    <div class="col-md-6 mb-4">
+        <div class="card p-4 shadow">
+            <h5>
+                <a href="{{ article.link }}" target="http://127.0.0.1:5000_blank" class="headline-link">
+                    {{ article.title }}
+                </a>
+            </h5>
+
+            {% if article.summary %}
+                <p class="summary mt-2">{{ article.summary }}</p>
+            {% endif %}
+            
+	    
+        }
+<hr>
+
+<div class="small mt-2">
+
+<p>
+    <strong style="color: white;">Sentiment:</strong>
+    <span class="badge 
+        {% if article.sentiment == 'Positive' %}
+            bg-success
+        {% elif article.sentiment == 'Negative' %}
+            bg-danger
+        {% else %}
+            bg-secondary
+        {% endif %}
+    ">
+        {{ article.sentiment }}
+    </span>
+</p>
+
+<p>
+    <strong style="color: white;">Intensity:</strong>
+    <span class="badge bg-warning text-dark">
+        {{ article.intensity }}
+    </span>
+</p>
+
+<p>
+    <strong style="color: white;">Credibility:</strong>
+    <span class="badge bg-info">
+        {{ article.credibility }}/10
+    </span>
+</p>
+
+<p>
+    <strong style="color: white;">Cross-Confirmation:</strong>
+    <span class="badge bg-primary">
+        {{ article.confirmation }}
+        ({{ article.confirmation_count }})
+    </span>
+</p>
+
+<p>
+    <strong style="color: white;">Framing Risk:</strong>
+    <span class="badge bg-dark">
+        {{ article.framing_risk }}
+    </span>
+</p>
+
+</div>      
+        .source-tag {
+            font-size: 0.8rem;
+            color: #38bdf8;}
+            <div class="source-tag mt-2">
+                {{ article.source }}
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</div>
+
+{% endblock %}
