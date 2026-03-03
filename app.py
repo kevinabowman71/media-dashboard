@@ -179,11 +179,11 @@ def get_framing_risk(title):
 def index():
     category = request.args.get("category", "World")
     articles = get_headlines(category)
-    analysis = analyze_headline(article["title"])
+    
     for article in articles:
         # Summary
         article["summary"] = summarize_headline(article["title"])
-
+        analysis = analyze_headline(article["title"])
         # Sentiment + intensity
         article["sentiment"] = analysis["sentiment"]
         article["intensity"] = analysis["intensity"]
