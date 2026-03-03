@@ -49,7 +49,7 @@ cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 CATEGORIES = {
     "World": {
         "Reuters": "http://feeds.reuters.com/Reuters/worldNews",
-        "BBC": "http://feeds.bbci.co.uk/news/world/rss.xml",
+        # "BBC": "http://feeds.bbci.co.uk/news/world/rss.xml",
         "Associated Press": "https://apnews.com/rss/apf-worldnews",
         "Al Jazeera": "https://www.aljazeera.com/xml/rss/all.xml",
         "The Guardian": "https://www.theguardian.com/world/rss",
@@ -61,7 +61,7 @@ CATEGORIES = {
    
     "Politics": {
     "Reuters": "http://feeds.reuters.com/Reuters/politicsNews",
-    "BBC": "http://feeds.bbci.co.uk/news/politics/rss.xml",
+    # "BBC": "http://feeds.bbci.co.uk/news/politics/rss.xml",
     "NPR": "https://feeds.npr.org/1014/rss.xml",
     "Politico": "https://www.politico.com/rss/politics08.xml",
     "The Hill": "https://thehill.com/rss/syndicator/19109",
@@ -75,7 +75,7 @@ CATEGORIES = {
     },
     "Technology": {
         "Reuters": "http://feeds.reuters.com/reuters/technologyNews",
-        "BBC": "http://feeds.bbci.co.uk/news/technology/rss.xml",
+        # "BBC": "http://feeds.bbci.co.uk/news/technology/rss.xml",
         "Techradar": "https://www.techradar.com/feeds.xml",
         "TechCrunch": "https://techcrunch.com/feed/"
     },
