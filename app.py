@@ -1,3 +1,16 @@
+###############################################
+# Media Intelligent Dashboard                 #
+# A dashboard formatted news program that     #
+# searches the most credible news sources     #
+# and analyzes the content and rates them     #
+# according to Sentiment, Intensity,          #
+# Credibility, Cross-Confirmation and Framing #
+# Risk using intelligent scoring. Gives the   #
+# user the info to determine if the news      #
+# article is credible.                        #
+# Written by Kevin Bowman - Python 3          #
+# Origin date - 9-6-25 Update 3-2-26          #
+###############################################
 
 import os
 import feedparser
@@ -62,6 +75,8 @@ CATEGORIES = {
     "Technology": {
         "Reuters": "http://feeds.reuters.com/reuters/technologyNews",
         "BBC": "http://feeds.bbci.co.uk/news/technology/rss.xml"
+        "Techradar": "https://www.techradar.com/feeds.xml
+        "TechCrunch": "https://techcrunch.com/feed/"
     }
 }
 SOURCE_TRUST = {
@@ -75,7 +90,9 @@ SOURCE_TRUST = {
     "Fox News": 6,
     "Al Jazeera": 7,
     "CBS News": 8,
-    "ABC News": 8
+    "ABC News": 8,
+    "TechRadar": 8,
+    "TechCrunch": 9
 }
 def get_headlines(category):
     articles = []
