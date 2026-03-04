@@ -1,5 +1,8 @@
 {% extends "base.html" %}
+
 {% block content %}
+
+
 
 <ul class="nav nav-tabs mb-4">
     {% for cat in categories %}
@@ -16,76 +19,144 @@
 {% for article in articles %}
     <div class="col-md-6 mb-4">
         <div class="card p-4 shadow">
+        
             <h5>
-                <a href="{{ article.link }}" target="http://127.0.0.1:5000_blank" class="headline-link">
+                <a href="{{ article.link }}" target="_blank" class="headline-link">
                     {{ article.title }}
                 </a>
             </h5>
-
+          
             {% if article.summary %}
                 <p class="summary mt-2">{{ article.summary }}</p>
             {% endif %}
+
+            <hr>
+
+            <div class="mt-2" style="color:white; font-size:14px;">
             
-	    
-        }
-<hr>
+                <p>
+                   <span class="badge {{ 'bg-success' if article.sentiment == 'Positive' else 'bg-danger' if article.sentiment == 'Negative' else 'bg-secondary' }}">
+                   {{ article.sentiment }}
+                   </span>
+                </p>
 
-<div class="small mt-2">
+                <p>
+                    <strong>Intensity:</strong>
+                    <span class="badge bg-warning text-dark">
+                        {{ article.intensity }}
+                    </span>
+                </p>
 
-<p>
-    <strong style="color: white;">Sentiment:</strong>
-    <span class="badge 
-        {% if article.sentiment == 'Positive' %}
-            bg-success
-        {% elif article.sentiment == 'Negative' %}
-            bg-danger
-        {% else %}
-            bg-secondary
-        {% endif %}
-    ">
-        {{ article.sentiment }}
-    </span>
-</p>
+                <p>
+                    <strong>Credibility:</strong>
+                    <span class="badge bg-info">
+                        {{ article.credibility }}/10
+                    </span>
+                </p>
 
-<p>
-    <strong style="color: white;">Intensity:</strong>
-    <span class="badge bg-warning text-dark">
-        {{ article.intensity }}
-    </span>
-</p>
+                <p>
+                    <strong>Cross-Confirmation:</strong>
+                    <span class="badge bg-primary">
+                        {{ article.confirmation }}
+                        ({{ article.confirmation_count }})
+                    </span>
+                </p>
 
-<p>
-    <strong style="color: white;">Credibility:</strong>
-    <span class="badge bg-info">
-        {{ article.credibility }}/10
-    </span>
-</p>
+                <p>
+                    <strong>Framing Risk:</strong>
+                    <span class="badge bg-dark">
+                        {{ article.framing_risk }}
+                    </span>
+                </p>
 
-<p>
-    <strong style="color: white;">Cross-Confirmation:</strong>
-    <span class="badge bg-primary">
-        {{ article.confirmation }}
-        ({{ article.confirmation_count }})
-    </span>
-</p>
+            </div>
 
-<p>
-    <strong style="color: white;">Framing Risk:</strong>
-    <span class="badge bg-dark">
-        {{ article.framing_risk }}
-    </span>
-</p>
-
-</div>      
-        .source-tag {
-            font-size: 0.8rem;
-            color: #38bdf8;}
             <div class="source-tag mt-2">
                 {{ article.source }}
             </div>
+
         </div>
     </div>
 {% endfor %}
 </div>
+
+<!-- Overlay -->
+<div id="helpOverlay" class="help-overlay"></div>
+
+<!-- Slide-In Help Panel -->
+<div id="helpPanel" class="help-panel">
+  <div class="help-header">
+    <h4>📊 Media Analysis Guide</h4>
+    <span id="closeHelp" class="close-help">&times;</span>
+  </div>
+
+  <div class="help-body">
+
+    <div class="help-section">
+      <h5>😊 Sentiment</h5>
+      <p>Indicates whether the headline tone is Positive, Neutral, or Negative.</p>
+    </div>
+
+    <hr>
+
+    <div class="help-section">
+      <h5>🔥 Intensity</h5>
+      <p>Measures emotional strength. High intensity headlines use dramatic or emotionally charged language.</p>
+    </div>
+
+    <hr>
+
+    <div class="help-section">
+      <h5>🛡 Credibility</h5>
+      <p>A 1–10 source trust score based on journalistic reliability and editorial standards.</p>
+    </div>
+
+    <hr>
+
+    <div class="help-section">
+      <h5>🔎 Cross-Confirmation</h5>
+      <p>Shows whether multiple outlets are reporting similar versions of the same story.</p>
+    </div>
+
+    <hr>
+
+    <div class="help-section">
+      <h5>⚠ Framing Risk</h5>
+      <p>Indicates how strongly the headline may be emotionally framed or rhetorically shaped.</p>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Floating Help Button -->
+<button id="helpToggle" class="help-toggle">?</button>
+
+<script>
+const helpToggle = document.getElementById("helpToggle");
+const helpPanel = document.getElementById("helpPanel");
+const helpOverlay = document.getElementById("helpOverlay");
+const closeHelp = document.getElementById("closeHelp");
+
+function openHelp() {
+  helpPanel.classList.add("open");
+  helpOverlay.classList.add("active");
+}
+
+function closeHelpPanel() {
+  helpPanel.classList.remove("open");
+  helpOverlay.classList.remove("active");
+}
+
+helpToggle.addEventListener("click", openHelp);
+closeHelp.addEventListener("click", closeHelpPanel);
+helpOverlay.addEventListener("click", closeHelpPanel);
+
+document.addEventListener("keydown", function(event) {
+  if (event.key === "Escape") {
+    closeHelpPanel();
+  }
+});
+</script>
 
 {% endblock %}
