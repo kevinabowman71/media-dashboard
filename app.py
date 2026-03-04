@@ -213,12 +213,10 @@ def analyze_headline_local(title):
         "framing_risk": framing_risk,
         "summary": title
     }
-
-# @cache.cached(timeout=900)  # 15 minutes         
+        
 @app.route("/")
 def index():
-    
-    
+
     category = request.args.get("category", "World")
     articles = get_headlines(category)
 

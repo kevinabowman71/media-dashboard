@@ -1,0 +1,143 @@
+/* Source Tag */
+.source-tag {
+  font-size: 0.8rem;
+  color: #38bdf8;
+}
+
+/* Help Button (older rectangular style if used) */
+.help-button {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  padding: 8px 14px;
+  background-color: #38bdf8;
+  color: #0f172a;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.help-button:hover {
+  background-color: #0ea5e9;
+}
+
+/* Floating Help Button (round version) */
+.help-toggle {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: #38bdf8;
+  color: #0f172a;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  transition: 0.2s ease;
+  z-index: 1001;
+}
+
+.help-toggle:hover {
+  background: #0ea5e9;
+  transform: scale(1.08);
+}
+
+/* Background Overlay */
+.help-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s ease;
+  z-index: 999;
+}
+
+.help-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Help Slide Panel */
+.help-panel {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 400px;
+  height: 100%;
+  background: #1e293b;
+  color: #e2e8f0;
+  box-shadow: -6px 0 20px rgba(0,0,0,0.6);
+  padding: 25px;
+  transition: right 0.35s ease;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.help-panel.open {
+  right: 0;
+}
+
+/* Panel Header */
+.help-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #334155;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+}
+
+.close-help {
+  font-size: 24px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.close-help:hover {
+  color: #38bdf8;
+}
+
+/* Help Content */
+.help-section h5 {
+  color: #38bdf8;
+  font-weight: 600;
+}
+
+.help-section p {
+  font-size: 0.95rem;
+  color: #cbd5e1;
+}
+
+.help-body hr {
+  border-color: #334155;
+}
+
+/* Modal (legacy support if you ever reuse it) */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+}
+
+.modal-content {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  margin: 8% auto;
+  padding: 25px;
+  width: 90%;
+  max-width: 650px;
+  border-radius: 12px;
+}
