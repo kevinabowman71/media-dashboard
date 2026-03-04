@@ -92,7 +92,7 @@ CATEGORIES = {
         "Sacramento Observer": "https://www.sacobserver.com/feed/",
         "Inside Sacramento": "https://insidesacramento.com/feed/",
         "KCRA": "https://www.kcra.com/topstories-rss",
-        "Midweek": "https://www.midweek.com/category/hawaii-community-news/windward/",
+        "Midweek": "https://www.midweek.com/category/hawaii-community-news/windward/windward-oahu-news/feed/",
         "KHON2": "https://www.khon2.com/feed",
         "KITV": "https://www.kitv.com/news.rss",
         "Hawaii News Now": "https://www.hawaiinewsnow.com/rss/"
