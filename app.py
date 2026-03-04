@@ -86,7 +86,17 @@ CATEGORIES = {
         "Variety": "https://variety.com/feed/",
         "Buzzeed": "https://www.buzzfeed.com/rss",
         "Pop Culture Junkie": "https://ejunkieblog.com/category/pop-culture/feed/"
-}
+    },
+    "Local Sac and Hawaii News": {
+        "https://sacramento.newsreview.com/feed/",
+        "https://www.sacobserver.com/feed/",
+        "https://insidesacramento.com/feed/",
+        "https://www.kcra.com/topstories-rss",
+        "https://www.midweek.com/category/hawaii-community-news/windward/",
+        "https://www.khon2.com/feed",
+        "https://www.kitv.com/news.rss",
+        "https://www.hawaiinewsnow.com/rss/"
+}        
 }
 SOURCE_TRUST = {
     "Reuters": 9,
@@ -106,7 +116,15 @@ SOURCE_TRUST = {
     "Variety": 9,
     "BuzzFeed": 8,
     "Pop Culture Junkie": 9,
-    "Honolulu Star-Advertiser": 9
+    "Honolulu Star-Advertiser": 9,
+    "Sacramento News & Review": 9,
+    "Sacramento Observer": 8,
+    "Inside Sacramento": 8,
+    "KCRA": 7,
+    "Midweek": 9,
+    "KHON2": 8,
+    "KITV": 8,
+    "Hawaii News Now": 9
 }
 
 def get_headlines(category):
