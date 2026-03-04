@@ -58,7 +58,8 @@ CATEGORIES = {
         "NPR": "https://feeds.npr.org/1004/rss.xml",
         "CBS News": "https://www.cbsnews.com/latest/rss/world",
         "ABC News": "https://abcnews.go.com/abcnews/internationalheadlines",
-        "Honolulu Star-Advertiser": "http://staradvertiser.com/feed"
+        "Honolulu Star-Advertiser": "http://staradvertiser.com/feed",
+        "Fox News": "https://moxie.foxnews.com/google-publisher/latest.xml"
 },
    
     "Politics": {
