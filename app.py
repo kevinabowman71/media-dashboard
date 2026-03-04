@@ -12,7 +12,9 @@
 # Origin date - 9-6-25 Update 3-2-26          #
 ###############################################
 
+
 import os
+
 import feedparser
 from flask import Flask, render_template, request
 
@@ -55,8 +57,7 @@ CATEGORIES = {
         "The Guardian": "https://www.theguardian.com/world/rss",
         "NPR": "https://feeds.npr.org/1004/rss.xml",
         "CBS News": "https://www.cbsnews.com/latest/rss/world",
-        "ABC News": "https://abcnews.go.com/abcnews/internationalheadlines",
-        "Fox News": " https://moxie.foxnews.com/google-publisher/world.xml"
+        "ABC News": "https://abcnews.go.com/abcnews/internationalheadlines"
 },
    
     "Politics": {
@@ -71,16 +72,16 @@ CATEGORIES = {
 },
     "Business": {
         "Reuters": "http://feeds.reuters.com/reuters/businessNews",
-        "BBC": "http://feeds.bbci.co.uk/news/business/rss.xml"
+        # "BBC": "http://feeds.bbci.co.uk/news/business/rss.xml"
     },
     "Technology": {
         "Reuters": "http://feeds.reuters.com/reuters/technologyNews",
-        # "BBC": "http://feeds.bbci.co.uk/news/technology/rss.xml",
+        # "BBC": "http://feeds.bbci.co.uk/news/technology/rss.xml"
         "Techradar": "https://www.techradar.com/feeds.xml",
         "TechCrunch": "https://techcrunch.com/feed/"
     },
     "Entertainment": {
-        "The Hollywood Reporter": "ttps://hollywoodreporter.com/c/news/feed/",
+        "The Hollywood Reporter": "https://hollywoodreporter.com/c/news/feed/",
         "Variety": "https://variety.com/feed/",
         "Buzzeed": "https://www.buzzfeed.com/rss",
         "Pop Culture Junkie": "https://ejunkieblog.com/category/pop-culture/feed/"
@@ -98,13 +99,14 @@ SOURCE_TRUST = {
     "Al Jazeera": 7,
     "CBS News": 8,
     "ABC News": 8,
-    "TechRadar": 8,
-    "TechCrunch": 9,
+    "TechRadar": 9,
+    "TechCrunch": 8,
     "The Hollywood Reporter": 7,
     "Variety": 9,
     "BuzzFeed": 8,
     "Pop Culture Junkie": 9
 }
+
 def get_headlines(category):
     articles = []
     feeds = CATEGORIES.get(category, {})
@@ -211,10 +213,10 @@ def analyze_headline_local(title):
         "framing_risk": framing_risk,
         "summary": title
     }
-@cache.cached(timeout=900)  # 15 minutes         
+# @cache.cached(timeout=900)  # 15 minutes         
 @app.route("/")
 def index():
-
+    
     category = request.args.get("category", "World")
     articles = get_headlines(category)
     for article in articles:
