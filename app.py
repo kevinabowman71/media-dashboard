@@ -26,23 +26,23 @@ from flask import request, Response
 USERNAME = "kevin"
 PASSWORD = "Trudy2024$"
 
-def check_auth(username, password):
-    return username == USERNAME and password == PASSWORD
+# def check_auth(username, password):
+#    return username == USERNAME and password == PASSWORD
 
-def authenticate():
-    return Response(
-        "Authentication required", 401,
-        {"WWW-Authenticate": 'Basic realm="Login Required"'}
-    )
+# def authenticate():
+#    return Response(
+#        "Authentication required", 401,
+#        {"WWW-Authenticate": 'Basic realm="Login Required"'}
+#    )
     
 
 
 
-@app.before_request
-def require_login():
-    auth = request.authorization
-    if not auth or not check_auth(auth.username, auth.password):
-        return authenticate()
+#@app.before_request
+#def require_login():
+#    auth = request.authorization
+#    if not auth or not check_auth(auth.username, auth.password):
+#        return authenticate()
         
 from flask_caching import Cache
 
