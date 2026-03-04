@@ -140,4 +140,19 @@
   width: 90%;
   max-width: 650px;
   border-radius: 12px;
+  .ratings p {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.ratings p {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.ratings strong {
+  color: #cbd5e1;
 }
