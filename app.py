@@ -57,7 +57,7 @@ CATEGORIES = {
         "The Guardian": "https://www.theguardian.com/world/rss",
         "NPR": "https://feeds.npr.org/1004/rss.xml",
         "CBS News": "https://www.cbsnews.com/latest/rss/world",
-        "ABC News": "https://abcnews.go.com/abcnews/internationalheadlines"
+        "ABC News": "https://abcnews.go.com/abcnews/internationalheadlines",
         "Honolulu Star-Advertiser": "http://staradvertiser.com/feed"
 },
    
@@ -105,7 +105,8 @@ SOURCE_TRUST = {
     "The Hollywood Reporter": 7,
     "Variety": 9,
     "BuzzFeed": 8,
-    "Pop Culture Junkie": 9
+    "Pop Culture Junkie": 9,
+    "Honolulu Star-Advertiser": 9
 }
 
 def get_headlines(category):
