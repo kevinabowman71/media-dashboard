@@ -68,7 +68,7 @@ CATEGORIES = {
     "Politico": "https://www.politico.com/rss/politics08.xml",
     "The Hill": "https://thehill.com/rss/syndicator/19109",
     "Associated Press": "https://apnews.com/rss/apf-politics",
-    
+    "Democracy Now": "https://www.democracynow.org/democracynow.rss",
     "The Guardian": "https://www.theguardian.com/us-news/us-politics/rss"
 },
     "Business": {
@@ -124,7 +124,8 @@ SOURCE_TRUST = {
     "Midweek": 9,
     "KHON2": 8,
     "KITV": 8,
-    "Hawaii News Now": 9
+    "Hawaii News Now": 9,
+    "Democracy Now": 10
 }
 
 def get_headlines(category):
@@ -194,6 +195,9 @@ SENSATIONAL_PATTERNS = [
     r"\bfury\b",
     r"\bdevastating\b",
     r"\bblasts?\b",
+    r"\bcontroversial\b",
+    r"\bFox News\b",
+    r"\bdead\b"
 ]
 
 def analyze_headline_local(title):
