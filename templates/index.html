@@ -31,14 +31,14 @@
             {% endif %}
 
             <hr>
-
-            <div class="ratings mt-2" style="font-size:14px;">
             
+            <div class="ratings mt-2"> 
+
                 <p>
-                   <strong>Sentiment:</strong>
-                   <span class="badge {{ 'bg-success' if article.sentiment == 'Positive' else 'bg-danger' if article.sentiment == 'Negative' else 'bg-secondary' }}">
-                   {{ article.sentiment }}
-                   </span>
+                    <strong>Sentiment:</strong>
+                    <span class="badge {{ 'bg-success' if article.sentiment == 'Positive' else 'bg-danger' if article.sentiment == 'Negative' else 'bg-secondary' }}">
+                       {{ article.sentiment }}
+                     </span>
                 </p>
 
                 <p>
