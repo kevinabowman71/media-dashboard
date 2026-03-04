@@ -88,14 +88,14 @@ CATEGORIES = {
         "Pop Culture Junkie": "https://ejunkieblog.com/category/pop-culture/feed/"
     },
     "Local Sac and Hawaii News": {
-        "https://sacramento.newsreview.com/feed/",
-        "https://www.sacobserver.com/feed/",
-        "https://insidesacramento.com/feed/",
-        "https://www.kcra.com/topstories-rss",
-        "https://www.midweek.com/category/hawaii-community-news/windward/",
-        "https://www.khon2.com/feed",
-        "https://www.kitv.com/news.rss",
-        "https://www.hawaiinewsnow.com/rss/"
+        "Sacramento News & Review": "https://sacramento.newsreview.com/feed/",
+        "Sacramento Observer": "https://www.sacobserver.com/feed/",
+        "Inside Sacramento": "https://insidesacramento.com/feed/",
+        "KCRA": "https://www.kcra.com/topstories-rss",
+        "Midweek": "https://www.midweek.com/category/hawaii-community-news/windward/",
+        "KHON2": "https://www.khon2.com/feed",
+        "KITV": "https://www.kitv.com/news.rss",
+        "Hawaii News Now": "https://www.hawaiinewsnow.com/rss/"
 }        
 }
 SOURCE_TRUST = {
