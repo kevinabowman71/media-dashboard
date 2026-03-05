@@ -88,7 +88,7 @@ CATEGORIES = {
         "Buzzeed": "https://www.buzzfeed.com/rss",
         "Pop Culture Junkie": "https://ejunkieblog.com/category/pop-culture/feed/"
     },
-    "Local Sac and Hawaii News": {
+    "Local News": {
         "Sacramento News & Review": "https://sacramento.newsreview.com/feed/",
         "Sacramento Observer": "https://www.sacobserver.com/feed/",
         "Inside Sacramento": "https://insidesacramento.com/feed/",
