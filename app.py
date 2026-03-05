@@ -50,9 +50,9 @@ cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
 CATEGORIES = {
     "World": {
-        "Reuters": "http://feeds.reuters.com/Reuters/worldNews",
+        "Reuters": "https://news.google.com/rss/search?q=site%3Areuters.com&hl=en-US&gl=US&ceid=US%3Aen",
         # "BBC": "http://feeds.bbci.co.uk/news/world/rss.xml",
-        "Associated Press": "https://apnews.com/rss/apf-worldnews",
+        "Associated Press": "https://apnews.com/index.rss",
         "Al Jazeera": "https://www.aljazeera.com/xml/rss/all.xml",
         "The Guardian": "https://www.theguardian.com/world/rss",
         "NPR": "https://feeds.npr.org/1004/rss.xml",
@@ -63,7 +63,7 @@ CATEGORIES = {
 },
    
     "Politics": {
-    "Reuters": "http://feeds.reuters.com/Reuters/politicsNews",
+    "Reuters": "https://rss.app/feeds/xbg6yCCO4BUjNsEJ.xml",
     # "BBC": "http://feeds.bbci.co.uk/news/politics/rss.xml",
     "NPR": "https://feeds.npr.org/1014/rss.xml",
     "Politico": "https://www.politico.com/rss/politics08.xml",
@@ -73,11 +73,11 @@ CATEGORIES = {
     "The Guardian": "https://www.theguardian.com/us-news/us-politics/rss"
 },
     "Business": {
-        "Reuters": "http://feeds.reuters.com/reuters/businessNews",
+        "Reuters": "https://rss.app/feeds/6Vzt4fsbzIdkqN43.xml",
         # "BBC": "http://feeds.bbci.co.uk/news/business/rss.xml"
     },
     "Technology": {
-        "Reuters": "http://feeds.reuters.com/reuters/technologyNews",
+        "Reuters": "https://rss.app/feeds/uLBJJc3MXuWpNaGu.xml",
         # "BBC": "http://feeds.bbci.co.uk/news/technology/rss.xml"
         "Techradar": "https://www.techradar.com/feeds.xml",
         "TechCrunch": "https://techcrunch.com/feed/"
@@ -186,7 +186,7 @@ NEGATIVE_WORDS = {
 HIGH_INTENSITY_WORDS = {
     "shocking", "explosive", "outrage", "bombshell",
     "devastating", "massive", "fury", "panic", "slam",
-    "blasts", "destroys"
+    "blasts", "destroys", "Predators"
 }
 
 SENSATIONAL_PATTERNS = [
