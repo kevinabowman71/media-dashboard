@@ -2,8 +2,14 @@
 
 {% block content %}
 
+<div class="floating-controls">
 
+<button id="helpToggle" class="help-toggle">?</button>
 
+<button class="help-toggle" onclick="toggleNarratives()">📊</button>
+
+</div>
+   
 <ul class="nav nav-tabs mb-4">
     {% for cat in categories %}
     <li class="nav-item">
@@ -14,6 +20,14 @@
     </li>
     {% endfor %}
 </ul>
+
+
+   
+
+</div>
+
+
+
 
 <div class="row">
 {% for article in articles %}
@@ -125,7 +139,165 @@
       <h5>⚠ Framing Risk</h5>
       <p>Indicates how strongly the headline may be emotionally framed or rhetorically shaped.</p>
     </div>
-    
+    <hr>
+<h5 class="mt-4">Narrative Analysis Tools</h5>
+<hr>
+
+<div class="help-section">
+  <h5>🚀 Narrative Momentum</h5>
+
+  <p>
+  Narrative Momentum highlights stories that are spreading rapidly across
+  multiple news outlets.
+  </p>
+
+  <p>
+  The system measures how many sources are reporting a similar story and
+  how quickly those reports appear over time.
+  </p>
+
+  <p>
+  Stories with higher momentum are gaining coverage quickly across the
+  media ecosystem and may represent emerging or rapidly developing news
+  narratives.
+  </p>
+
+  <p>
+  The display shows how many outlets reported the story and the time span
+  between the earliest and latest coverage detected.
+  </p>
+  
+  <p>
+Higher momentum often indicates a story that is quickly gaining media attention.
+</p>
+
+
+
+</div>
+<div class="help-section">
+  <h5>🔥 Top Narratives Right Now</h5>
+  <p>
+  Identifies the biggest news stories currently appearing across multiple outlets.
+  The system groups similar headlines from different sources into clusters and
+  ranks them by how many outlets are covering the same story.
+  </p>
+  <p>
+  A higher source count indicates a story that is gaining wider media attention.
+  </p>
+</div>
+<hr>
+
+<div class="help-section">
+  <h5>🧭 Narrative Timeline</h5>
+  <p>
+  Shows how a news narrative spreads across different parts of the media ecosystem.
+  Each bar represents when outlets with different editorial leanings first reported
+  the story.
+  </p>
+  <p>
+  Left, Center, and Right labels indicate ideological media groups.
+  Shorter bars represent earlier coverage, while longer bars indicate outlets
+  that reported the story later.
+  </p>
+</div>
+<hr>
+
+<div class="help-section">
+  <h5>🧭 Narrative Polarization</h5>
+
+  <p>
+  Narrative Polarization measures how a news story is distributed across
+  different ideological segments of the media ecosystem.
+  </p>
+
+  <p>
+  Each narrative cluster is analyzed to determine how many outlets with
+  <strong>Left</strong>, <strong>Center</strong>, and <strong>Right</strong>
+  editorial leanings are reporting the story.
+  </p>
+
+  <p>
+  Large differences between groups may indicate that a narrative is being
+  amplified more strongly within one part of the media landscape.
+  </p>
+</div>  
+<hr>
+<hr>
+
+<div class="help-section">
+  <h5>🌍 Narrative Diversity</h5>
+
+  <p>
+  Narrative Diversity measures how evenly a story is being reported across
+  different parts of the media ecosystem.
+  </p>
+
+  <p>
+  The system compares how many outlets with
+  <strong>Left</strong>, <strong>Center</strong>, and <strong>Right</strong>
+  editorial leanings are covering the same narrative cluster.
+  </p>
+
+  <p>
+  A higher diversity score indicates that the story is appearing across a
+  broad range of media perspectives. Lower scores suggest that coverage is
+  concentrated within a smaller segment of the media landscape.
+  </p>
+
+  <p>
+  This metric can help identify narratives that are widely shared versus
+  those that may be circulating primarily within one media ecosystem.
+  </p>
+  
+  <p>
+  Score	Interpretation
+    0.00	completely concentrated (one ecosystem only)
+    0.20–0.35	low diversity
+    0.35–0.55	moderate diversity
+    0.55–0.75	high diversity
+    0.75+	very balanced coverage
+  </p>  
+
+</div>
+<div class="help-section">
+  <h5>🗺 Narrative Map</h5>
+
+  <p>
+  The Narrative Map visualizes how a story moves across the media ecosystem.
+  </p>
+
+  <p>
+  It displays the relative presence of coverage among
+  <strong>Left</strong>, <strong>Center</strong>, and <strong>Right</strong>
+  media outlets using directional arrows.
+  </p>
+
+  <p>
+  This helps illustrate whether a narrative is concentrated in one media
+  segment or spreading across multiple editorial environments.
+  </p>
+</div>  
+<hr>
+
+<div class="help-section">
+  <h5>🌐 Narrative Ecosystem Graph</h5>
+
+  <p>
+  The Narrative Ecosystem Graph provides a visual summary of how a major
+  narrative is distributed across different media ecosystems.
+  </p>
+
+  <p>
+  The chart compares the number of outlets reporting the story within
+  Left, Center, and Right editorial groups.
+  </p>
+
+  <p>
+  This visualization helps reveal whether a narrative is broadly shared
+  across the media landscape or concentrated within specific ideological
+  communities.
+  </p>
+</div>
     <hr>
     
     <div class="help-section">
@@ -136,9 +308,118 @@
   </div>
 </div>
 
+<!-- Narrative Slide Panel -->
+<div id="narrativePanel" class="help-panel">
 
-<!-- Floating Help Button -->
-<button id="helpToggle" class="help-toggle">?</button>
+  <div class="help-header">
+    <h4>📊 Narrative Intelligence</h4>
+    <span onclick="toggleNarratives()" class="close-help">&times;</span>
+  </div>
+
+  <div class="help-body">
+
+    <h5>🚀 Narrative Momentum</h5>
+    <ul class="list-group mb-3">
+    {% for m in momentum %}
+      <li class="list-group-item">
+        <strong>{{ m.topic }}</strong><br>
+        {{ m.sources }} outlets in {{ m.spread }} minutes
+      </li>
+    {% endfor %}
+    </ul>
+
+    <h5>🧭 Narrative Polarization</h5>
+    <ul class="list-group mb-3">
+    {% for p in polarization %}
+      <li class="list-group-item">
+        <strong>{{ p.topic }}</strong><br>
+        🟢 {{ p.left }} | 🔵 {{ p.center }} | 🔴 {{ p.right }}
+      </li>
+    {% endfor %}
+    </ul>
+    
+    <h5>🌍 Narrative Diversity</h5>
+
+<ul class="list-group mb-3">
+
+{% for d in diversity %}
+
+<li class="list-group-item">
+
+<strong>{{ d.topic }}</strong><br>
+
+Diversity Score: {{ d.score }} ({{ d.label }})
+
+</li>
+<h5>🔥 Top Narratives</h5>
+<ul class="list-group mb-3">
+{% for n in top_narratives %}
+<li class="list-group-item">
+<strong>{{ n.topic }}</strong><br>
+{{ n.count }} sources
+</li>
+{% endfor %}
+</ul>
+
+
+<h5>🧭 Narrative Timeline</h5>
+
+{% for n in narratives %}
+<div style="margin-bottom:15px;">
+<strong>{{ n.topic }}</strong>
+
+{% for bias, minutes in n.bars.items() %}
+<div>
+{{ bias.capitalize() }}
+
+<span style="
+display:inline-block;
+background:#4a90e2;
+height:10px;
+width:{{ 20 + (minutes/5)|int }}px;
+margin-left:8px;
+margin-right:8px;">
+</span>
+
+{{ n.timeline[bias].strftime("%H:%M") }}
+
+</div>
+
+
+{% endfor %}
+
+</ul>
+{% endfor %}
+
+</div>
+{% endfor %}
+
+
+<h5>🗺 Narrative Map</h5>
+
+{% for p in polarization %}
+<div class="mb-3">
+
+<strong>{{ p.topic }}</strong>
+
+<div style="font-size:16px;">
+🟢 {{ p.left }} → 🔵 {{ p.center }} → 🔴 {{ p.right }}
+</div>
+
+</div>
+{% endfor %}
+
+
+<h5>🌐 Narrative Ecosystem Graph</h5>
+
+<div style="width:280px;height:160px;">
+<canvas id="narrativeGraph"></canvas>
+</div>
+
+</div>
+</div>
+
+
 
 <script>
 const helpToggle = document.getElementById("helpToggle");
@@ -161,10 +442,172 @@ closeHelp.addEventListener("click", closeHelpPanel);
 helpOverlay.addEventListener("click", closeHelpPanel);
 
 document.addEventListener("keydown", function(event) {
-  if (event.key === "Escape") {
-    closeHelpPanel();
-  }
+
+if (event.key === "Escape") {
+
+closeHelpPanel();
+
+const narrativePanel = document.getElementById("narrativePanel");
+
+if (narrativePanel.classList.contains("open")) {
+narrativePanel.classList.remove("open");
+}
+
+}
+
 });
+
 </script>
 
+<h5>🧭 Narrative Polarization</h5>
+<ul class="list-group mb-3">
+{% for p in polarization %}
+<li class="list-group-item">
+<strong>{{ p.topic }}</strong><br>
+🟢 Left {{ p.left }} |
+🔵 Center {{ p.center }} |
+🔴 Right {{ p.right }}
+</li>
+{% endfor %}
+</ul>
+
+
+<h5>🔥 Top Narratives</h5>
+<ul class="list-group mb-3">
+{% for n in top_narratives %}
+<li class="list-group-item">
+<strong>{{ n.topic }}</strong><br>
+{{ n.count }} sources
+</li>
+{% endfor %}
+</ul>
+
+
+<h5>🧭 Narrative Timeline</h5>
+
+{% for n in narratives %}
+
+<div style="margin-bottom:15px;">
+<strong>{{ n.topic }}</strong>
+
+{% for bias, minutes in n.bars.items() %}
+
+<div>
+{{ bias.capitalize() }}
+
+<span style="
+display:inline-block;
+background:#4a90e2;
+height:10px;
+width:{{ 20 + (minutes/5)|int }}px;
+margin-left:8px;
+margin-right:8px;">
+</span>
+
+{{ n.timeline[bias].strftime("%H:%M") }}
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endfor %}
+
+
+<h5>🗺 Narrative Map</h5>
+
+{% for p in polarization %}
+
+<div class="mb-3">
+
+<strong>{{ p.topic }}</strong>
+
+<div style="font-size:16px;">
+🟢 {{ p.left }} → 🔵 {{ p.center }} → 🔴 {{ p.right }}
+</div>
+
+</div>
+
+{% endfor %}
+
+
+<h5>🌐 Narrative Ecosystem Graph</h5>
+
+<div style="width:280px;height:160px;">
+<canvas id="narrativeGraph"></canvas>
+</div>
+
+</div>
+
+</div>
+function toggleNarratives() {
+
+const panel = document.getElementById("narrativePanel");
+
+if (panel.style.right === "0px") {
+panel.style.right = "-420px";
+} else {
+panel.style.right = "0px";
+}
+
+}
+</script>
+<script>
+
+function toggleNarratives() {
+
+  const panel = document.getElementById("narrativePanel");
+
+  if (panel.classList.contains("open")) {
+    panel.classList.remove("open");
+  } else {
+    panel.classList.add("open");
+  }
+
+}
+
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+
+const ctx = document.getElementById('narrativeGraph');
+
+new Chart(ctx, {
+type: 'bar',
+
+data: {
+labels: ['Left', 'Center', 'Right'],
+
+datasets: [{
+label: 'Narrative Coverage',
+data: [
+{{ polarization[0].left if polarization else 0 }},
+{{ polarization[0].center if polarization else 0 }},
+{{ polarization[0].right if polarization else 0 }}
+]
+}]
+},
+
+options: {
+responsive: true,
+maintainAspectRatio: false,
+
+plugins: {
+legend: { display:false }
+},
+
+scales: {
+y: {
+beginAtZero:true
+}
+}
+}
+
+});
+
+</script>
 {% endblock %}

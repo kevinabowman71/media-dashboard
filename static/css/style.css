@@ -22,11 +22,20 @@
   background-color: #0ea5e9;
 }
 
+.floating-controls {
+position: fixed;
+bottom: 20px;
+right: 20px;
+z-index: 2000;
+
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+
 /* Floating Help Button (round version) */
 .help-toggle {
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
+  
   width: 48px;
   height: 48px;
   border-radius: 50%;
