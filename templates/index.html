@@ -24,7 +24,7 @@
 
    
 
-</div>
+
 
 
 
@@ -249,14 +249,15 @@ Higher momentum often indicates a story that is quickly gaining media attention.
   those that may be circulating primarily within one media ecosystem.
   </p>
   
-  <p>
-  Score	Interpretation
-    0.00	completely concentrated (one ecosystem only)
-    0.20–0.35	low diversity
-    0.35–0.55	moderate diversity
-    0.55–0.75	high diversity
-    0.75+	very balanced coverage
-  </p>  
+  <p><strong>Diversity Score Guide:</strong></p>
+
+  <ul>
+  <li>0.00 — completely concentrated (one ecosystem only)</li>
+  <li>0.20–0.35 — low diversity</li>
+  <li>0.35–0.55 — moderate diversity</li>
+  <li>0.55–0.75 — high diversity</li>
+  <li>0.75+ — very balanced coverage</li>
+  </ul>
 
 </div>
 <div class="help-section">
@@ -351,6 +352,11 @@ Higher momentum often indicates a story that is quickly gaining media attention.
 Diversity Score: {{ d.score }} ({{ d.label }})
 
 </li>
+
+{% endfor %}
+
+</ul>
+
 <h5>🔥 Top Narratives</h5>
 <ul class="list-group mb-3">
 {% for n in top_narratives %}
@@ -388,11 +394,11 @@ margin-right:8px;">
 
 {% endfor %}
 
-</ul>
+
 {% endfor %}
 
 </div>
-{% endfor %}
+
 
 
 <h5>🗺 Narrative Map</h5>
@@ -457,7 +463,7 @@ narrativePanel.classList.remove("open");
 
 });
 
-
+</script>
 <script>
 
 function toggleNarratives() {

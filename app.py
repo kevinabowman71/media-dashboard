@@ -421,7 +421,7 @@ def detect_narratives(articles):
 
     clusters = cluster_articles(articles)
 
-    print("CLUSTERS FOUND:", len(clusters))
+    # print("CLUSTERS FOUND:", len(clusters))
 
     narratives = []
 
@@ -429,7 +429,7 @@ def detect_narratives(articles):
 
         topic = cluster[0]["title"][:40]   # short label
 
-        print("Topic:", topic, "Articles:", len(cluster))
+        #print("Topic:", topic, "Articles:", len(cluster))
 
         if len(cluster) < 2:
             continue
@@ -493,7 +493,13 @@ def get_narrative_momentum(articles):
         earliest = min(times)
         latest = max(times)
 
-        spread_minutes = (latest - earliest).total_seconds() / 60
+        spread_minutes = int((latest - earliest).total_seconds() / 60)
+
+        days = spread_minutes // 1440
+        hours = (spread_minutes % 1440) // 60
+        minutes = spread_minutes % 60
+
+        spread = f"{days}d {hours}h {minutes}m"
 
         if spread_minutes <= 0:
             continue
@@ -503,7 +509,7 @@ def get_narrative_momentum(articles):
         momentum.append({
             "topic": cluster[0]["title"],
             "sources": len(cluster),
-            "spread": int(spread_minutes),
+            "spread": spread,
             "velocity": velocity
         })
 
@@ -625,4 +631,4 @@ def index():
     
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
